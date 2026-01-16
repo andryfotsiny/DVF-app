@@ -10,7 +10,8 @@ from sqlalchemy import create_engine
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
-pd.set_option('precision', 0)
+pd.set_option('display.precision', 0)
+
 
 app = Flask(__name__, static_url_path='')
 

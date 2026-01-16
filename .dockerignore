@@ -1,0 +1,62 @@
+# Dépendances
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Fichiers Python (non utilisés avec API externe)
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+
+# Base de données locale (non utilisée)
+db/
+*.sql
+*.sqlite
+*.db
+
+# Fichiers de développement
+.git
+.gitignore
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Documentation
+README.md
+LICENSE
+*.md
+docs/
+
+# Fichiers de configuration locale
+.env.local
+.env.*.local
+config.csv
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Build artifacts
+dist/
+build/
+
+# Fichiers temporaires
+tmp/
+temp/

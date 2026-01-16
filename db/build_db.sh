@@ -28,7 +28,7 @@ find $DATADIR -name '*.gz' -exec gunzip -f '{}' \;
 DATAPATH=$( cd $DATADIR ; pwd -P )
 for ((YEAR = $min_year ; YEAR <= $max_year ; YEAR++));
 do
-  sudo -u postgres psql -d dvf_$year_end$month -c "COPY dvf FROM '$DATAPATH/full_$YEAR.csv' delimiter ',' csv header encoding 'UTF8';"
+  sudo -u postgres psql -d dvf_$year_end$month -c "\copy dvf FROM '$DATAPATH/full_$YEAR.csv' delimiter ',' csv header encoding 'UTF8';"
 done
 
 # Ajout d'une colonne et d'index - Assez long

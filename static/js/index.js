@@ -539,7 +539,14 @@ function onDepartementClick(event) {
 
 function toggleLeftBar() {
 	vue.fold_left = !vue.fold_left;
+
+	// Animation du hamburger
+	const hamburgerBtn = document.getElementById('hamburgerBtn');
+	if (hamburgerBtn) {
+		hamburgerBtn.classList.toggle('active');
+	}
 }
+
 
 // C'est le code qui est appelé au début (sans que personne ne clique)
 (function () {

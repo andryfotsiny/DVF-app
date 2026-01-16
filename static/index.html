@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>DVF</title>
+	<title>DVF Visual</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
 		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -22,103 +22,68 @@
 	<script type="text/javascript" src="https://unpkg.com/lodash@4.17.11/lodash.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
-	<style type="text/css">
-		html, body {
-			height: 100vh;
-			overflow-y: hidden;
-		}		
-		#announcement {
-			padding: 15px;
-			text-align: center;
-			background: #E8EDFF;
-			color: #0063CB
-		}
-		#announcement a {
-			color:#0063CB;
-			font-weight: bold;
-		}
-	</style>
 </head>
 
 <body>
-	<div id="announcement">
-		<i class="fa fa-info-circle" aria-hidden="true"></i>
-		Cette application fait peau neuve !
-		<a href="https://explore.data.gouv.fr/immobilier" target="_blank">Tester la nouvelle application DVF <i class="fa fa-external-link" aria-hidden="true" style="font-size: smaller;"></i></a>
-		<i class="fa fa-times" aria-hidden="true" onclick="document.getElementById('announcement').style.display='none'" style="float: right;"></i>
-	</div>
-	<div class="topnav">
-		<div class="topnav-left">
-			<div class="title">
-				<a class="full-title" href="/">Demande de Valeur Foncière</a>
-				<a class="short-title" href="/">DVF</a>
-			</div>
-			<div class="hamburger" onclick="toggleLeftBar()">
-				<i class="fas fa-bars fa-1x"></i>
-			</div>
-		</div>
-		<div class="topnav-right">
-			<a href="faq.html">Questions</a>
-			<a href="https://github.com/etalab/DVF-app">
-				Code<span class="long-text"> source</span>
-			</a>
-			<!--<a href="https://framaforms.org/demande-de-valeur-fonciere-dvf-votre-avis-nous-interesse-1556111586">
-				Votre avis<span class="long-text"> nous intéresse</span>
-			</a>-->
+	<!-- Header moderne -->
+	<div class="modern-header">
+		<div class="header-left">
+			<button class="hamburger-btn" onclick="toggleLeftBar()" id="hamburgerBtn">
+				<div class="hamburger-icon">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
+			<a class="brand" href="/">DVF <span class="brand-accent">Visual</span></a>
 		</div>
 	</div>
 
 	<div id="app" class="wrapper">
 		<div id="sidebar_left" class="sidebar" v-show="!fold_left" class="container">
 			<div class="scrollable">
-				<div class="form-group">
+				<div class="form-group-modern">
 					<label for="departements" class="control-label">Département</label>
-					<select name="departements" id="departements" onchange="selectionnerDepartement()" class="form-control">
+					<select name="departements" id="departements" onchange="selectionnerDepartement()" class="form-control-modern">
 						<option style="display:none"></option>
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="form-group-modern">
 					<label for="communes" class="control-label">Commune</label>
-					<select name="communes" id="communes" onchange="selectionnerCommune()" class="form-control">
+					<select name="communes" id="communes" onchange="selectionnerCommune()" class="form-control-modern">
 						<option style="display:none"></option>
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="form-group-modern">
 					<label for="sections" class="control-label">Section cadastrale</label>
-					<select name="sections" id="sections" onchange="selectionnerSection()" class="form-control">
+					<select name="sections" id="sections" onchange="selectionnerSection()" class="form-control-modern">
 						<option style="display:none"></option>
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="form-group-modern">
 					<label for="parcelles" class="control-label">Parcelle cadastrale</label>
-					<select name="parcelles" id="parcelles" onchange="selectionnerParcelle()" class="form-control">
+					<select name="parcelles" id="parcelles" onchange="selectionnerParcelle()" class="form-control-modern">
 						<option style="display:none"></option>
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="form-group-modern">
 					<label for="daterange" class="control-label">Date de la mutation</label>
-					<input type="text" id="daterange" name="daterange" value="01-01-2010 - 15-01-2018" class="form-control" />
+					<input type="text" id="daterange" name="daterange" value="01-01-2010 - 15-01-2018" class="form-control-modern" />
 				</div>
 			</div>
 
 			<div v-if="section">
 				<a v-if="data_section.length > 0" id="exportCSV"
-					onclick="exportCSV(this, data_section, codeCommune + '_' + idSectionToCode(idSection) + '.csv');" class="btn btn-primary"
-					style="width: 100%">Télécharger les mutations de la section</a>
-				<div v-else class="text-muted">
+					onclick="exportCSV(this, data_section, codeCommune + '_' + idSectionToCode(idSection) + '.csv');" class="btn-modern">
+					<i class="fas fa-download"></i> Télécharger CSV
+				</a>
+				<div v-else class="alert-modern">
 					La base de données DVF ne contient pas de mutation dans la section sélectionnée sur la plage temporelle
 					choisie.
 					<div v-if="['67', '68', '57', '976'].indexOf(codeDepartement) != -1">
 						En particulier, la base DVF ne contient pas de mutation en Haut-Rhin, Bas-Rhin, Moselle et à Mayotte.
 					</div>
-					<a href="/faq.html">En savoir plus</a>
 				</div>
-			</div>
-
-			<div id="logo">
-				<a href="https://www.etalab.gouv.fr/qui-sommes-nous">
-					<img src="/images/etalab-blanc.png" alt="Etalab" style="max-width: 100px" />
-				</a>
 			</div>
 		</div>
 
@@ -131,8 +96,13 @@
 			</div>
 		</div>
 
-		<div id="sidebar_right" class="sidebar" v-if="parcelle != null && parcelle.mutations.length > 0">
-			<div onclick="sortirDeParcelle()" class="close-link">Fermer X</div>
+		<div id="sidebar_right" class="sidebar sidebar-right" v-if="parcelle != null && parcelle.mutations.length > 0">
+			<div class="sidebar-header-modern">
+				<div class="sidebar-title-modern">Mutations de la parcelle</div>
+				<button class="close-btn-modern" onclick="sortirDeParcelle()">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
 			<div class="scrollable">
 				<div class="cards">
 					<boite-accordeon v-for="(mutation, index) in parcelle.mutations" :mutation="mutation"
@@ -145,7 +115,6 @@
 	<!-- Matomo -->
 	<script type="text/javascript">
 		var _paq = _paq || [];
-		/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
 		_paq.push(['trackPageView']);
 		_paq.push(['enableLinkTracking']);
 		(function () {
