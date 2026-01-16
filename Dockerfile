@@ -26,11 +26,11 @@ RUN addgroup -g 1001 -S nodejs && \
 USER nodejs
 
 # Exposer le port
-EXPOSE 3008
+EXPOSE 3010
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3008', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+  CMD node -e "require('http').get('http://localhost:3010', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Démarrer l'application
 CMD ["node", "server.js"]
